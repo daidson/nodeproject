@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const app = express();
 const MongoClient = require("mongodb").MongoClient;
 
+app.use(express.static("public"));
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -31,7 +32,7 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true })
         .find()
         .toArray()
         .then((results) => {
-          res.render('index.ejs', { quotes: results })
+          res.render("index.ejs", { quotes: results });
         })
         .catch((error) => console.error(error));
     });
@@ -46,5 +47,27 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true })
         .catch((error) => console.error(error));
       console.log(req.body);
     });
+
+    app.set("view engine", "ejs");
+    app.put("/quotes", (req, res) => {
+      quotesCollection
+        .findOneAndUpdate(
+          { name: "Yoda" },
+          {
+            $set: {
+              name: req.body.name,
+              quote: req.body.quote,
+            },
+          },
+          {
+            upsert: true,
+          }
+        )
+        .then((result) => {
+          console.log(result);
+        })
+        .catch((error) => console.error(error));
+    });
+    
   })
   .catch((error) => console.error(error));
