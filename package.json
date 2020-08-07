@@ -1,0 +1,23 @@
+{
+  "name": "nodeproject",
+  "version": "1.0.0",
+  "description": "my first node crud project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/daidson/nodeproject.git"
+  },
+  "keywords": [
+    "node",
+    "crud"
+  ],
+  "author": "Daidson Alves",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/daidson/nodeproject/issues"
+  },
+  "homepage": "https://github.com/daidson/nodeproject#readme"
+}
