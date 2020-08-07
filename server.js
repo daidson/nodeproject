@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const app = express();
 const MongoClient = require("mongodb").MongoClient;
 
+app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
 
 const connectionString =
@@ -17,20 +18,32 @@ const connectionString =
 MongoClient.connect(connectionString, { useUnifiedTopology: true })
   .then((client) => {
     console.log("Connected to Database");
-    const db = client.db("philosophy-quotes");
+    const db = client.db("wisdom-drops");
     const quotesCollection = db.collection("quotes");
+
     app.listen(3000, function () {
       console.log("Listening on port 3000");
     });
+
+    app.set("view engine", "ejs");
     app.get("/", (req, res) => {
-      res.sendFile(__dirname + "/index.html");
+      db.collection("quotes")
+        .find()
+        .toArray()
+        .then((results) => {
+          res.render('index.ejs', { quotes: results })
+        })
+        .catch((error) => console.error(error));
     });
 
+    app.set("view engine", "ejs");
     app.post("/quotes", (req, res) => {
-      quotesCollection.insertOne(req.body).then((result) => {
-        console.log(result);
-      })
-      .catch(error => console.error(error))
+      quotesCollection
+        .insertOne(req.body)
+        .then((result) => {
+          res.redirect("/");
+        })
+        .catch((error) => console.error(error));
       console.log(req.body);
     });
   })
