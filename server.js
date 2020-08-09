@@ -9,7 +9,7 @@ app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
 
 const connectionString =
-  "";
+  "mongodb+srv://adml:YgA7vgyvAht9qsFf@testcluster.yquoq.gcp.mongodb.net/test?retryWrites=true&w=majority";
 
 // MongoClient.connect(connectionString, { useUnifiedTopology: true }, (err, client) => {
 //   if (err) return console.error(err);

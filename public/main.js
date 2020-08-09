@@ -1,13 +1,45 @@
-const update = document.querySelector("#update-button");
+const { response } = require("express");
 
-update.addEventListener("click", (_) => {
+const update = document.querySelector("#update-button");
+const deleteButton = document.querySelector("#delete-button");
+const messageDiv = document.querySelector("#message");
+
+update
+  .addEventListener("click", (_) => {
+    fetch("/quotes", {
+      method: "put",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name: "Dolly Parton",
+        quote:
+          "The way I see it, if you want the rainbow, you gotta put up with the rain",
+      }),
+    });
+  })
+  .then((res) => {
+    if (res.ok) return res.json();
+  })
+  .then((response) => {
+    window.location.reload(true);
+  });
+
+deleteButton.addEventListener("click", (_) => {
   fetch("/quotes", {
-    method: "put",
+    method: "delete",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       name: "Dolly Parton",
-      quote:
-        "The way I see it, if you want the rainbow, you gotta put up with the rain",
     }),
-  });
+  })
+    .then((res) => {
+      if (res.ok) return res.json();
+    })
+    .then((response) => {
+      if (response === "No quote to delete") {
+        messageDiv.textContent = "No quotes to delete";
+      } else {
+        window.location.reload(true);
+      }
+    })
+    .catch(console.error);
 });
