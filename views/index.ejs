@@ -3,38 +3,45 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Star Wars Quote App</title>
+    <title>Wisdom Drops Quote App</title>
+    <link rel="stylesheet" href="/styles.css" />
   </head>
 
   <body>
-    <h1>May Node and Express be with you.</h1>
-    <h2>Quotes</h2>
+    <h1 data-position="header">Wisdom drops everyday!</h1>
+    <section data-position="add-quote">
+      <h2>Add quote</h2>
 
-    <ul class="quotes">
-      <!-- Loop through quotes -->
-      <% for(var i = 0; i < quotes.length; i++) {%>
-      <li class="quote">
-        <!-- Output name from the iterated quote object -->
-        <span><%= quotes[i].name %></span>:
-        <!-- Output quote from the iterated quote object -->
-        <span><%= quotes[i].quote %></span>
-      </li>
-      <% } %>
-    </ul>
+      <form action="/quotes" method="POST">
+        <input type="text" placeholder="name" name="name" />
+        <input type="text" placeholder="quote" name="quote" />
+        <button type="submit">Submit</button>
+      </form>
+    </section>
 
-    <form action="/quotes" method="POST">
-      <input type="text" placeholder="name" name="name" />
-      <input type="text" placeholder="quote" name="quote" />
-      <button type="submit">Submit</button>
-    </form>
+    <section data-position="update-quote">
+      <div>
+        <h2>Dolly's knowledge!</h2>
+        <p>
+          Replace first quote with a quote written by Dolly Parton!
+        </p>
+        <button id="update-button">Replace quote</button>
+      </div>
+    </section>
 
-    <div>
-      <h2>Dolly Parton invades!</h2>
-      <p>
-        Replace the first quote with a quote written by Dolly Parton!
-      </p>
-      <button id="update-button">Replace the quote</button>
-    </div>
+    <section data-position="quotes">
+      <h2>Quotes</h2>
+
+      <ul class="quotes">
+        <% for(var i = 0; i < quotes.length; i++) {%>
+        <li class="quote">
+          <span><%= quotes[i].name %></span>:
+          <span><%= quotes[i].quote %></span>
+        </li>
+        <% } %>
+      </ul>
+    </section>
+
     <script src="/main.js"></script>
   </body>
 </html>
