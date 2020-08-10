@@ -5,9 +5,6 @@ const app = express()
 
 // ========================
 // Link to Database
-// ========================
-// Updates environment variables
-// @see https://zellwk.com/blog/environment-variables/
 require('./dotenv')
 
 // Replace process.env.DB_URL with your actual connection string
@@ -78,7 +75,6 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true })
 
     // ========================
     // Listen
-    // ========================
     const isProduction = process.env.NODE_ENV === 'production'
     const port = isProduction ? 7500 : 3000
     app.listen(port, function () {
